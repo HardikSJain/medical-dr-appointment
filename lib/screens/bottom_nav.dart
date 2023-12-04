@@ -1,4 +1,5 @@
 import 'package:dr_appointment/screens/no_internet.dart';
+import 'package:dr_appointment/screens/pages/schedule_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -16,6 +17,7 @@ class _BottomNavState extends State<BottomNav> {
   int bottomNavIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
+    const SchedulePage(),
   ];
 
   // check internet connectivity
@@ -45,8 +47,17 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xFFE2F5FC),
-      appBar: AppBar(),
+      backgroundColor: const Color(0xFFE2F5FC),
+      appBar: AppBar(
+        title: Text(
+          "Dr Appointment",
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+          ),
+        ),
+        backgroundColor: Colors.white,
+      ),
       body: SafeArea(
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 800),
@@ -68,27 +79,9 @@ class _BottomNavState extends State<BottomNav> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.search,
+              Icons.watch_later_rounded,
             ),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.laptop_mac_outlined,
-            ),
-            label: 'Courses',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.book_outlined,
-            ),
-            label: 'My Courses',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_outlined,
-            ),
-            label: 'Profile',
+            label: 'Appointment',
           ),
         ],
         currentIndex: bottomNavIndex,
