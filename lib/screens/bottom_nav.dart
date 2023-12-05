@@ -1,13 +1,10 @@
-import 'package:dr_appointment/screens/no_internet.dart';
 import 'package:dr_appointment/screens/pages/schedule_page.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'pages/home_page.dart';
 
 class BottomNav extends StatefulWidget {
-  const BottomNav({super.key});
+  const BottomNav({Key? key}) : super(key: key);
 
   @override
   State<BottomNav> createState() => _BottomNavState();
@@ -15,33 +12,11 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   int bottomNavIndex = 0;
-  final List<Widget> _widgetOptions = <Widget>[
-    const HomePage(),
-    const SchedulePage(),
-  ];
 
-  // check internet connectivity
-  Future<bool> checkInternetConnectivity() async {
-    final isConnected = await InternetConnectionChecker().hasConnection;
-    return isConnected;
-  }
-
-  // check internet connectivity and then navigate to screen
-  void _onItemTapped(int index) async {
-    final isConnected = await checkInternetConnectivity();
-
-    if (isConnected) {
-      setState(() {
-        bottomNavIndex = index;
-      });
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const NoInternetScreen(),
-        ),
-      );
-    }
+  void onItemTapped(int index) {
+    setState(() {
+      bottomNavIndex = index;
+    });
   }
 
   @override
@@ -49,9 +24,9 @@ class _BottomNavState extends State<BottomNav> {
     return Scaffold(
       backgroundColor: const Color(0xFFE2F5FC),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Dr Appointment",
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.black,
             fontSize: 18,
           ),
@@ -61,7 +36,7 @@ class _BottomNavState extends State<BottomNav> {
       body: SafeArea(
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 800),
-          child: _widgetOptions[bottomNavIndex],
+          child: _getPage(bottomNavIndex),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -70,7 +45,6 @@ class _BottomNavState extends State<BottomNav> {
         unselectedFontSize: 12,
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
-          // nav bar items
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
@@ -88,8 +62,19 @@ class _BottomNavState extends State<BottomNav> {
         selectedItemColor: Colors.blue,
         showUnselectedLabels: true,
         unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
+        onTap: onItemTapped,
       ),
     );
+  }
+
+  Widget _getPage(int index) {
+    switch (index) {
+      case 0:
+        return HomePage(onMakeAppointmentPressed: onItemTapped);
+      case 1:
+        return const SchedulePage();
+      default:
+        return Container();
+    }
   }
 }

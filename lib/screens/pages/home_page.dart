@@ -1,16 +1,23 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  final void Function(int) onMakeAppointmentPressed;
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+  HomePage({Key? key, required this.onMakeAppointmentPressed})
+      : super(key: key);
 
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: const Color(0xFFE2F5FC),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            onMakeAppointmentPressed(1);
+          },
+          child: const Text("Make Appointment"),
+        ),
+      ),
+    );
   }
 }
