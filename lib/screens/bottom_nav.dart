@@ -72,7 +72,7 @@ class _BottomNavState extends State<BottomNav> {
       case 0:
         return HomePage(onMakeAppointmentPressed: onItemTapped);
       case 1:
-        return const SchedulePage();
+        return SchedulePage();
       default:
         return Container();
     }
