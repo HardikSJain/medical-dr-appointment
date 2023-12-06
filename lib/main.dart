@@ -19,7 +19,7 @@ void main() {
 final locator = GetIt.instance;
 
 void setupLocator() {
-  locator.registerLazySingleton(() => NavigationService());
+  // locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => SnackbarService());
 }
 

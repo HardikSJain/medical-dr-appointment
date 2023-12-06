@@ -14,7 +14,7 @@ class SchedulePage extends StatelessWidget {
         return Scaffold(
           backgroundColor: const Color(0xFFE2F5FC),
           body: SingleChildScrollView(
-            controller: model.scrollController,
+            controller: model.screenScroll,
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

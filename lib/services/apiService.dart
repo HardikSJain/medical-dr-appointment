@@ -123,8 +123,8 @@ class ApiService {
       final response = await http.get(url);
       return true;
     } catch (e) {
-      // return false;
-      return true;
+      return false;
+      // return true;
     }
   }
 
@@ -177,11 +177,10 @@ class ApiService {
     }
   }
 
-  Future<bool> updateScheduleAPI(
-      Map<String, dynamic> scheduleData, String id) async {
+  Future<bool> updateScheduleAPI(Map<String, dynamic> scheduleData) async {
     try {
       var url = Uri.parse('$baseUrl/update_schedule.php');
-      final response = await http.post(
+      final response = await http.put(
         url,
         body: jsonEncode(scheduleData),
         headers: {'Content-Type': 'application/json'},
